@@ -1,0 +1,8 @@
+     A*----
+     A* Phisical File: HFPARDAT: Table Data Content File
+     A* Name:          HFPARDAT01.LF
+     A* Description:   Access by Table+Key
+     A*----
+     A          R FHDREG                    PFILE(HFPARDAT)
+     A          K FHDTAB
+     A          K FHDKEY

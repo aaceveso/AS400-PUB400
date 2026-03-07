@@ -1,0 +1,80 @@
+     A*%%TS  SD  20260307  151935  AACEVES     REL-V7R5M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      INDARA
+     A          R HFNEW
+     A*%%TS  SD  20260307  151935  AACEVES     REL-V7R5M0  5770-WDS
+     A                                      TEXT('Table definition screen')
+     A                                      CF03(03 '<F3> Exit')
+     A                                      CF11(11 '<F11> Update')
+     A                                      PAGEUP(25 '<Roll Up>')
+     A                                      PAGEDOWN(26 '<Roll Down>')
+     A                                  1 29'CONCEPT PARAMETER TABLE'
+     A                                      DSPATR(HI)
+     A                                  2 34'TABLE ENTRY'
+     A                                  4  7'Table:'
+     A                                  5  7'Description:'
+     A                                  6  7'Key Definition:'
+     A                                  7  7'Data Definition:'
+     A            SC1TAB         3A  B  4 24TEXT('Table ID')
+     A  31                                  DSPATR(RI)
+     A            SC1DES        50A  B  5 24TEXT('Description')
+     A  32                                  DSPATR(RI)
+     A            SC1KDE        30A  B  6 24TEXT('Key Definition')
+     A  33                                  DSPATR(RI)
+     A            SC1DDE        50A  B  7 24TEXT('Data definition')
+     A  34                                  DSPATR(RI)
+     A                                 23  3'<F3>'
+     A                                      DSPATR(HI)
+     A            SC1MSG        50A  O 24 29DSPATR(HI)
+     A                                 23  8'Exit'
+     A                                 23 14'<F6>'
+     A                                      DSPATR(HI)
+     A                                 23 19'Delete'
+     A                                 23 27'<F11>'
+     A                                      DSPATR(HI)
+     A                                 23 41'<RollUp>'
+     A                                      DSPATR(HI)
+     A                                 23 51'<RollDown>'
+     A                                      DSPATR(HI)
+     A                                 23 33'Update'
+     A          R HFDEL
+     A*%%TS  SD  20260307  151935  AACEVES     REL-V7R5M0  5770-WDS
+     A                                      TEXT('Confirm of deletion')
+     A                                      CF06(06 '<F6> Confirm')
+     A                                      CF12(12 '<F12> Cancel')
+     A                                  1 29'CONCEPT PARAMETER TABLE'
+     A                                      DSPATR(HI)
+     A                                  2 34'TABLE ENTRY'
+     A                                  4  7'Table:'
+     A                                  5  7'Description:'
+     A                                  6  7'Key Definition:'
+     A                                  7  7'Data Definition:'
+     A            SC1TAB         3A  O  4 24TEXT('Table ID')
+     A  31                                  DSPATR(RI)
+     A            SC1DES        50A  O  5 24TEXT('Description')
+     A  32                                  DSPATR(RI)
+     A            SC1KDE        30A  O  6 24TEXT('Key Definition')
+     A  33                                  DSPATR(RI)
+     A            SC1DDE        50A  O  7 24TEXT('Data definition')
+     A  34                                  DSPATR(RI)
+     A            SC1MSG        50A  O 24 29DSPATR(HI)
+     A                                 14 37'<F6>'
+     A                                      DSPATR(HI)
+     A                                 12 39'Are you sure?'
+     A                                 14 42'Confirm'
+     A                                 14 51'<F12>'
+     A                                      DSPATR(HI)
+     A                                 14 57'Cancel'
+     A                                 10 35'...............................'
+     A                                 16 35'...............................'
+     A                                 11 35'.'
+     A                                 12 35'.'
+     A                                 13 35'.'
+     A                                 14 35'.'
+     A                                 15 35'.'
+     A                                 11 65'.'
+     A                                 12 65'.'
+     A                                 13 65'.'
+     A                                 14 65'.'
+     A                                 15 65'.'

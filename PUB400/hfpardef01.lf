@@ -1,0 +1,9 @@
+     A*----
+     A* Phisical File: HFPARDEF: Table Data Definition File
+     A* Name:          HFPARDEF01.LF
+     A* Description:   Access by Table ID
+     A*----
+     A                                      UNIQUE
+     A          R FHHREG                    PFILE(HFPARDEF)
+     A          K FHHTAB
+

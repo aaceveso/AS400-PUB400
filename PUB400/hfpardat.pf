@@ -1,0 +1,10 @@
+     A*----
+     A* Name:       HFPARDAT.PF
+     A* Description: DATA CONTENT FILE
+     A* Author:      Agustín Aceves Osuna
+     A* Date:        20240302
+     A*----
+     A          R FHDREG
+     A            FHDTAB         3A         TEXT('TABLE ID')
+     A            FHDKEY        30A         TEXT('TABLE KEY')
+     A            FHDDAT        75A         TEXT('TABLE DATA')

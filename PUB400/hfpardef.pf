@@ -1,0 +1,9 @@
+     A*----
+     A* Name:        HFPARDEF.PF
+     A* Description: Table Definition File
+     A*----
+     A          R FHHREG
+     A            FHHTAB         3A         TEXT('Table ID')
+     A            FHHDESC       50A         TEXT('Table Description')
+     A            FHHKDEF       30A         TEXT('Table Key Definition')
+     A            FHHDDEF       75A         TEXT('Table Data Definition')
