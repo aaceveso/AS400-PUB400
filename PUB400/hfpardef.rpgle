@@ -8,17 +8,17 @@ dcl-f HFSCPAR    workstn indds(indicators);
 
 // Estructura de Indicadores vinculada a la pantalla
 dcl-ds indicators len(99);
-  exitKey      ind pos(3);   // CF03
-  deleteKey    ind pos(6);   // CF06
-  updateKey    ind pos(11);  // CF11
-  cancelKey    ind pos(12);  // CF12
-  pageUp       ind pos(25);  // PAGEUP
-  pageDown     ind pos(26);  // PAGEDOWN
-  errGroup     ind pos(31) len(4); // Error data (Pos 31-34)
-  errTab       ind pos(31);  // Error Table ID
-  errDes       ind pos(32);  // Error Description
-  errKde       ind pos(33);  // Error Key Def
-  errDde       ind pos(34);  // Error Data Def
+  exitKey      ind pos(3);              // CF03
+  deleteKey    ind pos(6);              // CF06
+  updateKey    ind pos(11);             // CF11
+  cancelKey    ind pos(12);             // CF12
+  pageUp       ind pos(25);             // PAGEUP
+  pageDown     ind pos(26);             // PAGEDOWN
+  errGroup     ind pos(31) len(4);      // Error data (Pos 31-34)
+  errTab       ind pos(31);             // Error Table ID
+  errDes       ind pos(32);             // Error Description
+  errKde       ind pos(33);             // Error Key Def
+  errDde       ind pos(34);             // Error Data Def
 end-ds;
 
 dcl-s recordExists ind;
