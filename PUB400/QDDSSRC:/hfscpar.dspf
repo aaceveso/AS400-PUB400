@@ -6,6 +6,7 @@
      A*%%TS  SD  20260307  151935  AACEVES     REL-V7R5M0  5770-WDS
      A                                      TEXT('Table definition screen')
      A                                      CF03(03 '<F3> Exit')
+     A                                      CF06(06 '<F6> Delete')     
      A                                      CF11(11 '<F11> Update')
      A                                      PAGEUP(25 '<Roll Up>')
      A                                      PAGEDOWN(26 '<Roll Down>')

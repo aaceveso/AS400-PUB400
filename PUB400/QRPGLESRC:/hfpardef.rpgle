@@ -3,22 +3,22 @@ ctl-opt dftactgrp(*no) actgrp(*new) option(*nodebugio) datedit(*ymd);
 
 // File Declarations
 // HPPARDEF01 es el lógico por clave FHHTAB
-dcl-f HFPARDEF01 usage(*update:*output) keyed;
+dcl-f HFPARDEF01 usage(*update:*output:*delete) keyed;
 dcl-f HFSCPAR    workstn indds(indicators);
 
 // Estructura de Indicadores vinculada a la pantalla
 dcl-ds indicators len(99);
-  exitKey      ind pos(3);              // CF03
-  deleteKey    ind pos(6);              // CF06
-  updateKey    ind pos(11);             // CF11
-  cancelKey    ind pos(12);             // CF12
-  pageUp       ind pos(25);             // PAGEUP
-  pageDown     ind pos(26);             // PAGEDOWN
-  errGroup     ind pos(31) len(4);      // Error data (Pos 31-34)
-  errTab       ind pos(31);             // Error Table ID
-  errDes       ind pos(32);             // Error Description
-  errKde       ind pos(33);             // Error Key Def
-  errDde       ind pos(34);             // Error Data Def
+  exitKey      ind     pos(3);              // CF03
+  deleteKey    ind     pos(6);              // CF06
+  updateKey    ind     pos(11);             // CF11
+  cancelKey    ind     pos(12);             // CF12
+  pageUp       ind     pos(25);             // PAGEUP
+  pageDown     ind     pos(26);             // PAGEDOWN
+  errGroup     char(4) pos(31);             // Error data (Pos 31-34)
+  errTab       ind     pos(31);             // Error Table ID
+  errDes       ind     pos(32);             // Error Description
+  errKde       ind     pos(33);             // Error Key Def
+  errDde       ind     pos(34);             // Error Data Def
 end-ds;
 
 dcl-s recordExists ind;
@@ -40,7 +40,7 @@ return;
 
 dcl-proc screenValidationProc;
   SC1MSG = *blanks; // Limpiar mensaje de error
-  errGroup = *off; // Clear error indicators
+  errGroup = '0000'; // Clear error indicators
   If not (PageUp or PageDown or UpdateKey or exitKey);
     // Table field
     if SC1TAB = *blanks;
@@ -108,7 +108,7 @@ end-proc;
 
 dcl-proc deleteConfirmation;
   // Confirm deletion
-  deleteKey = *off
+  deleteKey = *off;
   SC1MSG = *blanks;
   dow not deleteKey or cancelKey; // Loop until user confirms deletion or cancels
     exfmt HFDEL; // Display confirmation screen
@@ -116,10 +116,10 @@ dcl-proc deleteConfirmation;
       when cancelKey; // If user cancels deletion (CF12)
         SC1MSG = alignTextRight('Deletion cancelled');
         SC1TAB = *blanks;
-          SC1DES = *blanks;
-          SC1KDE = *blanks;
-          SC1DDE = *blanks;
-          tempTab = SC1TAB; // Update tempTab to reflect the cleared state
+        SC1DES = *blanks;
+        SC1KDE = *blanks;
+        SC1DDE = *blanks;
+        tempTab = SC1TAB; // Update tempTab to reflect the cleared state
       when deleteKey; // If user confirms deletion (CF06)
         chain(e) SC1TAB HFPARDEF01; // Reposition to the record to be deleted
         if not %found(HFPARDEF01);
@@ -144,24 +144,24 @@ dcl-proc deleteConfirmation;
 end-proc;
 
 dcl-proc pageUpProc;
-    setll SC1TAB HFPARDEF01; // Posicionar en el registro ac
-    readp HFPARDEF01;
-    if not %eof(HFPARDEF01);
-      SC1TAB = FHHTAB;
-      SC1DES = FHHDESC;
-      SC1KDE = FHHKDEF;
-      SC1DDE = FHHDDEF;
-    else;
-      setgt *hival HFPARDEF01; // Volver a posicionar en el
-      readp HFPARDEF01; // Intentar leer el registro anterio
-      SC1TAB = FHHTAB;
-      SC1DES = FHHDESC;
-      SC1KDE = FHHKDEF;
-      SC1DDE = FHHDDEF;
-      SC1MSG = alignTextRight('Last Record');
-    endif;
-    tempTab = SC1TAB;
-    pageUp = *off; // Limpiar indicador de Page Up
+  setll SC1TAB HFPARDEF01; // Posicionar en el registro ac
+  readp HFPARDEF01;
+  if not %eof(HFPARDEF01);
+    SC1TAB = FHHTAB;
+    SC1DES = FHHDESC;
+    SC1KDE = FHHKDEF;
+    SC1DDE = FHHDDEF;
+  else;
+    setgt *hival HFPARDEF01; // Volver a posicionar en el
+    readp HFPARDEF01; // Intentar leer el registro anterio
+    SC1TAB = FHHTAB;
+    SC1DES = FHHDESC;
+    SC1KDE = FHHKDEF;
+    SC1DDE = FHHDDEF;
+    SC1MSG = alignTextRight('Last Record');
+  endif;
+  tempTab = SC1TAB;
+  pageUp = *off; // Limpiar indicador de Page Up
 end-proc;
 
 dcl-proc pageDownProc;
