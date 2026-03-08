@@ -1,1 +1,5 @@
+# Archivos temporales de VS Code IBM i
+.vscode/
+.logs/
+*.evfevent
 .DS_Store

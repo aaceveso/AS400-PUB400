@@ -1,0 +1,15 @@
+{
+  "description": "Proyecto de pruebas para AS400 en PUB400",
+  "objlib": "AACEVES1",
+  "curlib": "AACEVES1",
+  "includePath": [
+    "QRPGLESRC",
+    "QDDSSRC",
+    "QCLSRC",
+    "QCMDSRC",
+    "QSQLSRC",
+    "QCBLLESRC",
+    "QCPPSRC"
+  ],
+  "deployLocation": "/home/AACEVES"
+}
