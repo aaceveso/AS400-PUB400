@@ -89,7 +89,9 @@ end-proc;
 
 dcl-proc updateKeyProc;
   // UpdateKey <F23>
-  if recordExists; // Si el registro se actualiza
+  chain SC1TAB HFPARDEF01;
+  recordExists = %found(HFPARDEF01);
+  if recordExists;
     FHHDESC = SC1DES;
     FHHKDEF = SC1KDE;
     FHHDDEF = SC1DDE;
