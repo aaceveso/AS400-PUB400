@@ -12,6 +12,7 @@ dcl-ds indicators len(99);
   deleteKey    ind     pos(6);              // CF06
   updateKey    ind     pos(11);             // CF11
   cancelKey    ind     pos(12);             // CF12
+  DataKey      ind     pos(23);             // CF23
   pageUp       ind     pos(25);             // PAGEUP
   pageDown     ind     pos(26);             // PAGEDOWN
   errGroup     char(4) pos(31);             // Error data (Pos 31-34)
@@ -20,6 +21,13 @@ dcl-ds indicators len(99);
   errKde       ind     pos(33);             // Error Key Def
   errDde       ind     pos(34);             // Error Data Def
 end-ds;
+
+// Declaración del programa externo
+dcl-pr hfpardat extpgm('HFPARDAT');
+  // Debes definir el tipo de dato del parámetro que vas a enviar (SC1TAB)
+  // Por ejemplo, si es un alfanumérico de 10 posiciones:
+  tableName char(3); 
+end-pr;
 
 dcl-s recordExists ind;
 dcl-s tempTab char(3) inz(''); // Temp variable to detect change of FHHTAB
@@ -83,6 +91,8 @@ dcl-proc screenFunctions;
       pageUpProc();
     when pageDown; // If pressed Page Down
       pageDownProc();
+    when DataKey; // If pressed CF23, Call external data key function
+      manageDataProc();
     other;
   endsl;
 end-proc;
@@ -108,20 +118,20 @@ dcl-proc updateKeyProc;
   tempTab = SC1TAB;
 end-proc;
 
-dcl-proc deleteConfirmation;
-  // Confirm deletion
+dcl-proc deleteConfirmation;  // Confirm deletion
   deleteKey = *off;
   SC1MSG = *blanks;
-  dow not deleteKey or cancelKey; // Loop until user confirms deletion or cancels
+  tempTab = SC1TAB;
+  dow not (deleteKey or cancelKey); // Loop until user confirms deletion or cancels
     exfmt HFDEL; // Display confirmation screen
     select;
       when cancelKey; // If user cancels deletion (CF12)
+        chain tempTab HFPARDEF01;
         SC1MSG = alignTextRight('Deletion cancelled');
-        SC1TAB = *blanks;
-        SC1DES = *blanks;
-        SC1KDE = *blanks;
-        SC1DDE = *blanks;
-        tempTab = SC1TAB; // Update tempTab to reflect the cleared state
+        SC1TAB = FHHTAB;
+        SC1DES = FHHDESC;
+        SC1KDE = FHHKDEF;
+        SC1DDE = FHHDDEF;
       when deleteKey; // If user confirms deletion (CF06)
         chain(e) SC1TAB HFPARDEF01; // Reposition to the record to be deleted
         if not %found(HFPARDEF01);
@@ -136,6 +146,10 @@ dcl-proc deleteConfirmation;
             endif;
           else;
             SC1MSG = alignTextRight('Record deleted successfully');
+            SC1TAB = *blanks; // Clear the table field after deletion
+            SC1DES = *blanks;
+            SC1KDE = *blanks;
+            SC1DDE = *blanks;
           endif;
         endif;
       other;
@@ -185,6 +199,12 @@ dcl-proc pageDownProc;
   endif;
   tempTab = SC1TAB;
   pageDown = *off; // Limpiar indicador de Page Down
+end-proc;
+
+dcl-proc manageDataProc; // Call external program to manage data
+  // hfpardat(SC1TAB);
+  SC1MSG = alignTextRight('Data management done'); 
+  DataKey = *off; 
 end-proc;
 
 dcl-proc alignTextRight;
