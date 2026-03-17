@@ -5,5 +5,8 @@
      A          R FHHREG
      A            FHHTAB         3A         TEXT('Table ID')
      A            FHHDESC       50A         TEXT('Table Description')
-     A            FHHKDEF       30A         TEXT('Table Key Definition')
-     A            FHHDDEF       75A         TEXT('Table Data Definition')
+     A            FHHKTIT       30A         TEXT('Key Definition Title')
+     A            FHHDTIT       50A         TEXT('Data Definition Title')
+     A            FHHKCAP       30A         TEXT('Key Definition Capture')
+     A            FHHDCAP       50A         TEXT('Data Definition Capture')
+     

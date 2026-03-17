@@ -1,0 +1,76 @@
+     A*%%TS  SD  20260317  142732  AACEVES     REL-V7R5M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R HFDAT                     SFL
+     A*%%TS  SD  20260317  142732  AACEVES     REL-V7R5M0  5770-WDS
+     A                                      TEXT('Detail (SFL)')
+     A            SC2OPT         1A  B  7  3
+     A            SC2KEY        30A  B  7  6
+     A            SC2DAT        43A  B  7 37
+     A          R HFHDR                     SFLCTL(HFDAT)
+     A*%%TS  SD  20260317  142732  AACEVES     REL-V7R5M0  5770-WDS
+     A                                      TEXT('Header (SFLCTL)')
+     A                                      CF03(03 '<F3> Exit')
+     A                                      CF06(06 '<F6> Insert')
+     A                                      CF11(11 '<F11> Update')
+     A                                      CF12(12 '<F12> Cancel')
+     A                                      OVERLAY
+     A  31                                  SFLDSP
+     A  32                                  SFLDSPCTL
+     A  30                                  SFLCLR
+     A  33                                  SFLEND
+     A                                      SFLSIZ(0999)
+     A                                      SFLPAG(0013)
+     A                                  1 29'CONCEPT PARAMETER TABLE'
+     A                                      DSPATR(HI)
+     A                                  2 35'DATA ENTRY'
+     A            SC1TBN        65A  O  3  7TEXT('TABLE ID & DESCRIPTION')
+     A                                  5  2'Opt'
+     A            SC1KTOP       30A  O  5  6
+     A                                  4 15'Key Definition'
+     A                                      DSPATR(HI)
+     A                                  4 51'Data Definition'
+     A                                      DSPATR(HI)
+     A            SC1DTOP       43A  O  5 37
+     A                                  6  2'__________________________________-
+     A                                      ___________________________________-
+     A                                      _________'
+     A          R HFFTR
+     A*%%TS  SD  20260317  142732  AACEVES     REL-V7R5M0  5770-WDS
+     A                                      TEXT('Footer')
+     A                                      CF03(03 '<F3> Exit')
+     A                                      CF06(06 '<F6> Delete')
+     A                                      CF11(11 '<F11> Update')
+     A                                      CF23(23 '<F23> Data')
+     A                                      PAGEUP(25 '<RollUp>')
+     A                                      PAGEDOWN(26 '<RollDown>')
+     A                                      OVERLAY
+     A                                 23  3'<F3>'
+     A                                      DSPATR(HI)
+     A                                 23  8'Exit'
+     A                                 23 27'<F11>'
+     A                                      TEXT('<F23> Data')
+     A                                      DSPATR(HI)
+     A                                 23 33'Update'
+     A                                 23  1' '
+     A                                 22 78' '
+     A                                 20  2'__________________________________-
+     A                                      ___________________________________-
+     A                                      _________'
+     A                                 22  3'D'
+     A                                      DSPATR(HI)
+     A                                 22  5'>elete'
+     A                                 23 14'<F6>'
+     A                                      DSPATR(HI)
+     A                                 23 19'Insert'
+     A            SC1KBOT       30A  O 21  6
+     A            SC1DBOT       43A  O 21 37
+     A            SC1MSG        50A  O 24 30DSPATR(HI)
+     A                                 23 41'<F12>'
+     A                                      DSPATR(HI)
+     A                                 23 47'Cancel'
+     A          R HFNULL
+     A*%%TS  SD  20260317  142732  AACEVES     REL-V7R5M0  5770-WDS
+     A                                      TEXT('No record')
+     A                                      OVERLAY
+     A                                 13 35'Table empty'

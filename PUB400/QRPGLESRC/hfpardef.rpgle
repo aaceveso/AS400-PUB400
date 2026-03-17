@@ -15,11 +15,14 @@ dcl-ds indicators len(99);
   DataKey      ind     pos(23);             // CF23
   pageUp       ind     pos(25);             // PAGEUP
   pageDown     ind     pos(26);             // PAGEDOWN
-  errGroup     char(4) pos(31);             // Error data (Pos 31-34)
+  errGroup     char(6) pos(31);             // Error data (Pos 31-36)
   errTab       ind     pos(31);             // Error Table ID
   errDes       ind     pos(32);             // Error Description
-  errKde       ind     pos(33);             // Error Key Def
-  errDde       ind     pos(34);             // Error Data Def
+  errKTit      ind     pos(33);             // Error Key Title
+  errDTit      ind     pos(34);             // Error Data Title
+  errKCap      ind     pos(35);             // Error Key Capture
+  errDCap      ind     pos(36);             // Error Data Capture
+
 end-ds;
 
 // Declaración del programa externo
@@ -64,15 +67,19 @@ dcl-proc lookForRecordProc;
     recordExists = %found(HFPARDEF01);
     if recordExists;
       // If record exists, load data into the screen
-      SC1TAB = FHHTAB;
-      SC1DES = FHHDESC;
-      SC1KDE = FHHKDEF;
-      SC1DDE = FHHDDEF;
+      SC1TAB  = FHHTAB;
+      SC1DES  = FHHDESC;
+      SC1KTI = FHHKTIT;
+      SC1DTI = FHHDTIT;
+      SC1KCA = FHHKCAP;
+      SC1DCA = FHHDCAP;
     else;
       // If record does not exist, clear detail fields
-      SC1DES = *blanks;
-      SC1KDE = *blanks;
-      SC1DDE = *blanks;
+      SC1DES  = *blanks;
+      SC1KTI = *blanks;
+      SC1DTI = *blanks;
+      SC1KCA = *blanks;
+      SC1DCA = *blanks;
     endif;
     tempTab = SC1TAB;
   endif;
@@ -101,16 +108,15 @@ dcl-proc updateKeyProc;
   // UpdateKey <F23>
   chain SC1TAB HFPARDEF01;
   recordExists = %found(HFPARDEF01);
+  FHHTAB  = SC1TAB;
+  FHHDESC = SC1DES;
+  FHHKTIT = SC1KTI;
+  FHHDTIT = SC1DTI; 
+  FHHKCAP = SC1KCA;
+  FHHDCAP = SC1DCA;
   if recordExists;
-    FHHDESC = SC1DES;
-    FHHKDEF = SC1KDE;
-    FHHDDEF = SC1DDE;
     update FHHREG; // Si existe, actualiza el registro
   else; // Si el registro no existe, lo crea
-    FHHTAB = SC1TAB;
-    FHHDESC = SC1DES;
-    FHHKDEF = SC1KDE;
-    FHHDDEF = SC1DDE;
     write FHHREG;  // Si no existe, lo crea
   endif;
   SC1MSG = alignTextRight('Table updated successfully');
@@ -130,8 +136,10 @@ dcl-proc deleteConfirmation;  // Confirm deletion
         SC1MSG = alignTextRight('Deletion cancelled');
         SC1TAB = FHHTAB;
         SC1DES = FHHDESC;
-        SC1KDE = FHHKDEF;
-        SC1DDE = FHHDDEF;
+        SC1KTI = FHHKTIT;
+        SC1DTI = FHHDTIT;
+        SC1KCA = FHHKCAP;
+        SC1DCA = FHHDCAP;
       when deleteKey; // If user confirms deletion (CF06)
         chain(e) SC1TAB HFPARDEF01; // Reposition to the record to be deleted
         if not %found(HFPARDEF01);
@@ -148,8 +156,10 @@ dcl-proc deleteConfirmation;  // Confirm deletion
             SC1MSG = alignTextRight('Record deleted successfully');
             SC1TAB = *blanks; // Clear the table field after deletion
             SC1DES = *blanks;
-            SC1KDE = *blanks;
-            SC1DDE = *blanks;
+            SC1KTI = *blanks;
+            SC1DTI = *blanks;
+            SC1KCA = *blanks;
+            SC1DCA = *blanks;
           endif;
         endif;
       other;
@@ -165,15 +175,19 @@ dcl-proc pageUpProc;
   if not %eof(HFPARDEF01);
     SC1TAB = FHHTAB;
     SC1DES = FHHDESC;
-    SC1KDE = FHHKDEF;
-    SC1DDE = FHHDDEF;
+    SC1KTI = FHHKTIT;
+    SC1DTI = FHHDTIT;
+    SC1KCA = FHHKCAP;
+    SC1DCA = FHHDCAP;
   else;
     setgt *hival HFPARDEF01; // Volver a posicionar en el
     readp HFPARDEF01; // Intentar leer el registro anterio
     SC1TAB = FHHTAB;
     SC1DES = FHHDESC;
-    SC1KDE = FHHKDEF;
-    SC1DDE = FHHDDEF;
+    SC1KTI = FHHKTIT;
+    SC1DTI = FHHDTIT;
+    SC1KCA = FHHKCAP;
+    SC1DCA = FHHDCAP;
     SC1MSG = alignTextRight('Last Record');
   endif;
   tempTab = SC1TAB;
@@ -186,15 +200,19 @@ dcl-proc pageDownProc;
   if not %eof(HFPARDEF01);
     SC1TAB = FHHTAB;
     SC1DES = FHHDESC;
-    SC1KDE = FHHKDEF;
-    SC1DDE = FHHDDEF;
+    SC1KTI = FHHKTIT;
+    SC1DTI = FHHDTIT;
+    SC1KCA = FHHKCAP;
+    SC1DCA = FHHDCAP;
   else;
     setll *loval HFPARDEF01; // Volver a posicionar en el pr
     read HFPARDEF01; // Intentar leer el siguiente registro
     SC1TAB = FHHTAB;
     SC1DES = FHHDESC;
-    SC1KDE = FHHKDEF;
-    SC1DDE = FHHDDEF;
+    SC1KTI = FHHKTIT;
+    SC1DTI = FHHDTIT;
+    SC1KCA = FHHKCAP;
+    SC1DCA = FHHDCAP;
     SC1MSG = alignTextRight('First Record'); // Mensaje para
   endif;
   tempTab = SC1TAB;
@@ -217,4 +235,3 @@ dcl-proc alignTextRight;
   evalr result = %trim(text);
   return result;
 end-proc;
-

@@ -1,9 +1,9 @@
-     A*%%TS  SD  20260317  114417  AACEVES     REL-V7R5M0  5770-WDS
+     A*%%TS  SD  20260317  153604  AACEVES     REL-V7R5M0  5770-WDS
      A*%%EC
      A                                      DSPSIZ(24 80 *DS3)
      A                                      INDARA
      A          R HFNEW
-     A*%%TS  SD  20260317  114417  AACEVES     REL-V7R5M0  5770-WDS
+     A*%%TS  SD  20260317  153604  AACEVES     REL-V7R5M0  5770-WDS
      A                                      TEXT('Table definition screen')
      A                                      CF03(03 '<F3> Exit')
      A                                      CF06(06 '<F6> Delete')
@@ -16,17 +16,17 @@
      A                                  2 29'TABLE ENTRY DEFINITION'
      A                                  4  7'Table:'
      A                                  5  7'Description:'
-     A                                  6  7'Key Definition:'
-     A                                  7  7'Data Definition:'
+     A                                  6  7'Key Def Title:'
+     A                                  7  7'Data Def Title:'
      A            SC1TAB         3A  B  4 24TEXT('Table ID')
      A  31                                  DSPATR(RI)
      A            SC1DES        50A  B  5 24TEXT('Description')
      A  32                                  DSPATR(RI)
-     A            SC1KDE        30A  B  6 24TEXT('Key Definition')
+     A            SC1KTI        30A  B  6 24TEXT('Key Title')
      A  33                                  DSPATR(RI)
-     A            SC1DDE        50A  B  7 24TEXT('Data definition')
+     A            SC1DTI        50A  B  7 24TEXT('Data Title')
      A  34                                  DSPATR(RI)
-     A            SC1MSG        50   O 24 29DSPATR(HI)
+     A            SC1MSG        50A  O 24 29DSPATR(HI)
      A                                 23  3'<F3>'
      A                                      DSPATR(HI)
      A                                 23  8'Exit'
@@ -42,8 +42,14 @@
      A                                 23 47'Data'
      A                                 23 53'<RollUp/Down>'
      A                                      DSPATR(HI)
+     A                                  8  7'Key Def Capture:'
+     A                                  9  7'Data Def Capt:'
+     A            SC1KCA        30A  B  8 24TEXT('Key Capture')
+     A  33                                  DSPATR(RI)
+     A            SC1DCA        50A  B  9 24TEXT('Data Capture')
+     A  34                                  DSPATR(RI)
      A          R HFDEL
-     A*%%TS  SD  20260317  114417  AACEVES     REL-V7R5M0  5770-WDS
+     A*%%TS  SD  20260317  153604  AACEVES     REL-V7R5M0  5770-WDS
      A                                      TEXT('Confirm of deletion')
      A                                      CF06(06 '<F6> Confirm')
      A                                      CF12(12 '<F12> Cancel')
@@ -52,15 +58,15 @@
      A                                  2 29'TABLE ENTRY DEFINITION'
      A                                  4  7'Table:'
      A                                  5  7'Description:'
-     A                                  6  7'Key Definition:'
-     A                                  7  7'Data Definition:'
+     A                                  6  7'Key Def Title:'
+     A                                  7  7'Data Def Title:'
      A            SC1TAB         3A  O  4 24TEXT('Table ID')
      A                                      DSPATR(UL)
      A            SC1DES        50A  O  5 24TEXT('Description')
      A                                      DSPATR(UL)
-     A            SC1KDE        30A  O  6 24TEXT('Key Definition')
+     A            SC1KTI        30A  O  6 24TEXT('Key Definition')
      A                                      DSPATR(UL)
-     A            SC1DDE        50A  O  7 24TEXT('Data definition')
+     A            SC1DTI        50A  O  7 24TEXT('Data definition')
      A                                      DSPATR(UL)
      A            SC1MSG        50A  O 24 29DSPATR(HI)
      A                                 14 37'<F6>'
@@ -82,3 +88,9 @@
      A                                 13 65'.'
      A                                 14 65'.'
      A                                 15 65'.'
+     A            SC1KCA        30A  O  8 24TEXT('Key Definition')
+     A                                      DSPATR(UL)
+     A            SC1DCA        50A  O  9 24TEXT('Data definition')
+     A                                      DSPATR(UL)
+     A                                  8  7'Key Def Capture:'
+     A                                  9  7'Data Def Capt:'

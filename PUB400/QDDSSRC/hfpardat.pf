@@ -7,4 +7,4 @@
      A          R FHDREG
      A            FHDTAB         3A         TEXT('TABLE ID')
      A            FHDKEY        30A         TEXT('TABLE KEY')
-     A            FHDDAT        75A         TEXT('TABLE DATA')
+     A            FHDDAT        50A         TEXT('TABLE DATA')
