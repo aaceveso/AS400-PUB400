@@ -26,14 +26,13 @@ dcl-ds indicators len(99);
 end-ds;
 
 // Declaración del programa externo
-dcl-pr hfpardat extpgm('HFPARDAT');
-  // Debes definir el tipo de dato del parámetro que vas a enviar (SC1TAB)
-  // Por ejemplo, si es un alfanumérico de 10 posiciones:
-  tableName char(3); 
+dcl-pr HFDETPAR extpgm('HFDETPAR');
+  tableId char(3); 
 end-pr;
 
 dcl-s recordExists ind;
 dcl-s tempTab char(3) inz(''); // Temp variable to detect change of FHHTAB
+dcl-s tableId char(3); // Parameter to pass the table name to the external program
 
 // --- Main Procedure ---
 dou exitKey;
@@ -220,7 +219,8 @@ dcl-proc pageDownProc;
 end-proc;
 
 dcl-proc manageDataProc; // Call external program to manage data
-  // hfpardat(SC1TAB);
+  tableId = SC1TAB; // Pass the table name to the external program
+  HFDETPAR(tableId); // Call the external program to manage data
   SC1MSG = alignTextRight('Data management done'); 
   DataKey = *off; 
 end-proc;
